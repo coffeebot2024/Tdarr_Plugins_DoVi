@@ -85,6 +85,7 @@ const plugin = (args:IpluginInputArgs):IpluginOutputArgs => {
     //    }
     //  });
     //}
+    
     // Copy metadata, but leave out chapter names as that creates an additional data stream
     // in mp4 which I found to cause issues during playback in this case.
     // Reference: https://stackoverflow.com/a/60374650
