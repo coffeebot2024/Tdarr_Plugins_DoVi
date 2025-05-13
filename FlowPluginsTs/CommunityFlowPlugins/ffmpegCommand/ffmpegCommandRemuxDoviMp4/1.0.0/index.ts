@@ -78,13 +78,13 @@ const plugin = (args:IpluginInputArgs):IpluginOutputArgs => {
     ];
 
     // Remove truehd and dca audio streams as they are not well supported by ffmpeg in mp4
-    if (args.originalLibraryFile.ffProbeData.streams) {
-      args.originalLibraryFile.ffProbeData.streams.forEach((stream, index) => {
-        if (stream.codec_type === 'audio' && ['dca', 'truehd'].includes(stream.codec_name)) {
-          mappingArguments.push(...['-map', `-1:${index}`]);
-        }
-      });
-    }
+    //if (args.originalLibraryFile.ffProbeData.streams) {
+    //  args.originalLibraryFile.ffProbeData.streams.forEach((stream, index) => {
+    //    if (stream.codec_type === 'audio' && ['dca', 'truehd'].includes(stream.codec_name)) {
+    //      mappingArguments.push(...['-map', `-1:${index}`]);
+    //    }
+    //  });
+    //}
     // Copy metadata, but leave out chapter names as that creates an additional data stream
     // in mp4 which I found to cause issues during playback in this case.
     // Reference: https://stackoverflow.com/a/60374650
