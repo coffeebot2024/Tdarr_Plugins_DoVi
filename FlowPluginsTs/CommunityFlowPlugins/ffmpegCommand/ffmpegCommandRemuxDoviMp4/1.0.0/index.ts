@@ -10,7 +10,7 @@ import {
 const details = () :IpluginDetails => ({
   name: 'Remux DoVi MP4',
   description: `
-  If input is MP4, then the video stream from that with other streams from original file into mp4.
+  Updated - If input is MP4, then the video stream from that with other streams from original file into mp4.
   Otherwise the file is an MKV, remux that as is into MP4. Unsupported audio streams are removed in the process.
   `,
   style: {
