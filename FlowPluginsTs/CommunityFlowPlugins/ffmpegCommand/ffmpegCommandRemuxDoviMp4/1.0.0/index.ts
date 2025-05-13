@@ -55,12 +55,12 @@ const plugin = (args:IpluginInputArgs):IpluginOutputArgs => {
           || (stream.codec_type === 'audio' && ['dca', 'truehd'].includes(stream.codec_name))
         )
       ) {
-        stream.removed = true;
+        //stream.removed = true;
       }
     });
     outputArguments.unshift(...[
       '-map_metadata', '0',
-      '-map_metadata:c', '-1',
+      '-map_metadata:c', '1',
       '-bsf:v', 'hevc_mp4toannexb',
     ]);
     outputFileId = args.inputFileObj._id;
@@ -85,14 +85,14 @@ const plugin = (args:IpluginInputArgs):IpluginOutputArgs => {
     //    }
     //  });
     //}
-    
+
     // Copy metadata, but leave out chapter names as that creates an additional data stream
     // in mp4 which I found to cause issues during playback in this case.
     // Reference: https://stackoverflow.com/a/60374650
     outputArguments.unshift(...[
       '-c:a', 'copy',
       '-map_metadata', '1',
-      '-map_metadata:c', '-1',
+      '-map_metadata:c', '1',
     ]);
     outputArguments.unshift(...mappingArguments);
     outputFileId = args.originalLibraryFile._id;
@@ -100,19 +100,19 @@ const plugin = (args:IpluginInputArgs):IpluginOutputArgs => {
 
   // The 'title' tag in the stream metadata is not recognized in mp4 containers
   // as a workaround setting the title in the 'handler_name' tag works
-  if (args.originalLibraryFile.ffProbeData.streams) {
-    let offset = 0;
-    args.originalLibraryFile.ffProbeData.streams.forEach((stream, index) => {
-      if (stream.codec_type === 'audio' && stream.tags && stream.tags.title) {
-        if (stream.codec_type === 'audio' && ['dca', 'truehd'].includes(stream.codec_name)) {
-          offset += 1;
-        } else {
-          outputArguments.push(`-metadata:s:${index - offset}`);
-          outputArguments.push(`handler_name=${stream.tags.title}`);
-        }
-      }
-    });
-  }
+  //if (args.originalLibraryFile.ffProbeData.streams) {
+  //  let offset = 0;
+  //  args.originalLibraryFile.ffProbeData.streams.forEach((stream, index) => {
+  //    if (stream.codec_type === 'audio' && stream.tags && stream.tags.title) {
+  //     if (stream.codec_type === 'audio' && ['dca', 'truehd'].includes(stream.codec_name)) {
+  //        offset += 1;
+  //      } else {
+  //        outputArguments.push(`-metadata:s:${index - offset}`);
+  //        outputArguments.push(`handler_name=${stream.tags.title}`);
+  //     }
+  //    }
+  //  });
+  //}
 
   args.variables.ffmpegCommand.overallInputArguments.push(...inputArguments);
   args.variables.ffmpegCommand.overallOuputArguments.push(...outputArguments);
