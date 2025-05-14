@@ -52,7 +52,7 @@ var plugin = function (args) {
         outputArguments.unshift.apply(outputArguments, [
             '-map_metadata', '0',
             '-map_metadata:c', '-1',
-            '-bsf:v', 'hevc_mp4toannexb',
+
         ]);
         outputFileId = args.inputFileObj._id;
     }
