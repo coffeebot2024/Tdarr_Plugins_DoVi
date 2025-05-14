@@ -64,7 +64,6 @@ var plugin = function (args) {
             '-i', args.inputFileObj._id,
         ];
         var mappingArguments_1 = [
-            '-map', '0',
             '-map', '1:a',
             '-map', '1:s',
         ];
