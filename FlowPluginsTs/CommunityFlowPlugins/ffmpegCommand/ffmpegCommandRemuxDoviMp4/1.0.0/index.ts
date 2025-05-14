@@ -10,7 +10,6 @@ import {
 const details = () :IpluginDetails => ({
   name: 'Remux DoVi MP4',
   description: `
-  Updated - If input is MP4, then the video stream from that with other streams from original file into mp4.
   Otherwise the file is an MKV, remux that as is into MP4. Unsupported audio streams are removed in the process.
   `,
   style: {
@@ -37,33 +36,35 @@ const plugin = (args:IpluginInputArgs):IpluginOutputArgs => {
   let outputFileId = '';
   let inputArguments : string[] = [];
   const outputArguments = [
-    '-dn',
     '-movflags', '+faststart',
+    //copy timestamp
     '-copyts',
+    //passthrough(0),cfr (1), vfr (2), auto (-1)
     '-fps_mode', '0',
     '-muxdelay', '0',
-    '-strict', 'unofficial',
   ];
-  if (extension === 'mkv') {
-    // Only remux the file as it is
-    args.variables.ffmpegCommand.streams.forEach((stream) => {
-      if (
-        stream.codec_type !== 'video'
-        && (
-          stream.codec_type !== 'audio'
+  //if (extension === 'mkv') {
+  // Only remux the file as it is
+  //  args.variables.ffmpegCommand.streams.forEach((stream) => {
+  //    if (
+  //      stream.codec_type !== 'video'
+  //      && (
+  //        stream.codec_type !== 'audio'
           // Remove truehd and dca audio streams as they are not well supported by ffmpeg in mp4
-          || (stream.codec_type === 'audio' && ['dca', 'truehd'].includes(stream.codec_name))
-        )
-      ) {
-        //stream.removed = true;
-      }
-    });
+  //        || (stream.codec_type === 'audio' && ['dca', 'truehd'].includes(stream.codec_name))
+  //      )
+  //    ) {
+  //     //stream.removed = true;
+  //    }
+  //  });
     outputArguments.unshift(...[
       '-map_metadata', '0',
       '-map_metadata:c', '1',
+      '-bsf:v', 'hevc_mp4toannexb',
     ]);
     outputFileId = args.inputFileObj._id;
-  } else {
+  //} 
+  //else {
     // Assemble the file from the previously packaed rpu.hevc.mp4 and the original mkv
 
     // Add the input file to the input arguments
@@ -73,7 +74,9 @@ const plugin = (args:IpluginInputArgs):IpluginOutputArgs => {
       '-i', args.inputFileObj._id,
     ];
     const mappingArguments = [
+      '-map', '0',
       '-map', '1:a',
+      '-map', '1:s',
     ];
 
     // Remove truehd and dca audio streams as they are not well supported by ffmpeg in mp4
@@ -89,13 +92,12 @@ const plugin = (args:IpluginInputArgs):IpluginOutputArgs => {
     // in mp4 which I found to cause issues during playback in this case.
     // Reference: https://stackoverflow.com/a/60374650
     outputArguments.unshift(...[
-      '-c:a', 'copy',
+      '-c', 'copy',
       '-map_metadata', '1',
-      '-map_metadata:c', '1',
     ]);
     outputArguments.unshift(...mappingArguments);
     outputFileId = args.originalLibraryFile._id;
-  }
+  //}
 
   // The 'title' tag in the stream metadata is not recognized in mp4 containers
   // as a workaround setting the title in the 'handler_name' tag works
