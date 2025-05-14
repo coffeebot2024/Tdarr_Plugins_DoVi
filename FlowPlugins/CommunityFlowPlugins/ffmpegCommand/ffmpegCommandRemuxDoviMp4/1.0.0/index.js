@@ -30,7 +30,6 @@ var plugin = function (args) {
     var _a, _b;
     var extension = (0, fileUtils_1.getContainer)(args.inputFileObj._id);
     var outputFileId = '';
-    var originalArguments = [];
     var inputArguments = [];
     var outputArguments = [
         '-movflags', '+faststart',
