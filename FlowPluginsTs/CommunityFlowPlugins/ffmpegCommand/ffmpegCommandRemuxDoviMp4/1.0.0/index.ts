@@ -10,7 +10,7 @@ import {
 const details = () :IpluginDetails => ({
   name: 'Remux DoVi MP4',
   description: `
-  Otherwise the file is an MKV, remux that as is into MP4. Unsupported audio streams are removed in the process.
+  Update2 - Otherwise the file is an MKV, remux that as is into MP4. Unsupported audio streams are removed in the process.
   `,
   style: {
     borderColor: '#6efefc',

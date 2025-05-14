@@ -6,7 +6,7 @@ var fileUtils_1 = require("../../../../FlowHelpers/1.0.0/fileUtils");
 /* eslint-disable no-param-reassign */
 var details = function () { return ({
     name: 'Remux DoVi MP4',
-    description: "\n  Updated - Otherwise the file is an MKV, remux that as is into MP4. Unsupported audio streams are removed in the process.\n  ",
+    description: "\n  Updated 1 - Otherwise the file is an MKV, remux that as is into MP4. Unsupported audio streams are removed in the process.\n  ",
     style: {
         borderColor: '#6efefc',
     },
@@ -49,10 +49,10 @@ var plugin = function (args) {
     //            stream.removed = true;
     //        }
     //    });
-        outputArguments.unshift.apply(outputArguments, [
-            '-map_metadata', '0',
-            '-map_metadata:c', '-1',
-        ]);
+    //    outputArguments.unshift.apply(outputArguments, [
+    //        '-map_metadata', '0',
+    //        '-map_metadata:c', '-1',
+    //    ]);
         outputFileId = args.inputFileObj._id;
     //}
     //else {
