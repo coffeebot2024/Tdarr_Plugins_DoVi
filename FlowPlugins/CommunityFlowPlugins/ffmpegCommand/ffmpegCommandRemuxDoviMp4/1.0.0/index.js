@@ -61,6 +61,9 @@ var plugin = function (args) {
         // This is needed because the output of this will be the original file
         // and tdarr will set that as the last input argument
         inputArguments = [
+            '-y','-hide_banner'
+        ];
+        originalArguments = [
             '-i', args.inputFileObj._id,
         ];
         var mappingArguments_1 = [
@@ -84,6 +87,7 @@ var plugin = function (args) {
             '-map_metadata', '1',
         ]);
         outputArguments.unshift.apply(outputArguments, mappingArguments_1);
+        outputArguments.unshift.apply(outputArguments, originalArguments);
         outputFileId = args.originalLibraryFile._id;
     //}
     // The 'title' tag in the stream metadata is not recognized in mp4 containers
