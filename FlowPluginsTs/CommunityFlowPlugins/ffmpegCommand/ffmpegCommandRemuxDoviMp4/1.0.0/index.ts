@@ -57,10 +57,10 @@ const plugin = (args:IpluginInputArgs):IpluginOutputArgs => {
   //     //stream.removed = true;
   //    }
   //  });
-    outputArguments.unshift(...[
-      '-map_metadata', '0',
-      '-map_metadata:c', '1',
-    ]);
+  //  outputArguments.unshift(...[
+  //    '-map_metadata', '0',
+  //    '-map_metadata:c', '1',
+  //  ]);
     outputFileId = args.inputFileObj._id;
   //} 
   //else {
