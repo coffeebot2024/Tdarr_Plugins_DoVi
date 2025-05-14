@@ -60,7 +60,6 @@ const plugin = (args:IpluginInputArgs):IpluginOutputArgs => {
     outputArguments.unshift(...[
       '-map_metadata', '0',
       '-map_metadata:c', '1',
-      '-bsf:v', 'hevc_mp4toannexb',
     ]);
     outputFileId = args.inputFileObj._id;
   //} 
