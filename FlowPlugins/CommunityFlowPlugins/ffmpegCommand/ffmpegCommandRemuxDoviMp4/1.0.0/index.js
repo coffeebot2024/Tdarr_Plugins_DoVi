@@ -54,7 +54,7 @@ var plugin = function (args) {
     //        '-map_metadata', '0',
     //        '-map_metadata:c', '-1',
     //    ]);
-        outputFileId = args.inputFileObj._id;
+    //    outputFileId = args.inputFileObj._id;
     //}
     //else {
         // Assemble the file from the previously packaed rpu.hevc.mp4 and the original mkv
@@ -62,9 +62,6 @@ var plugin = function (args) {
         // This is needed because the output of this will be the original file
         // and tdarr will set that as the last input argument
         inputArguments = [
-            '-y','-hide_banner'
-        ];
-        originalArguments = [
             '-i', args.inputFileObj._id,
         ];
         var mappingArguments_1 = [
