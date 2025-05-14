@@ -84,7 +84,6 @@ var plugin = function (args) {
             '-map_metadata', '1',
         ]);
         outputArguments.unshift.apply(outputArguments, mappingArguments_1);
-        outputArguments.unshift.apply(outputArguments, originalArguments);
         outputFileId = args.originalLibraryFile._id;
     //}
     // The 'title' tag in the stream metadata is not recognized in mp4 containers
