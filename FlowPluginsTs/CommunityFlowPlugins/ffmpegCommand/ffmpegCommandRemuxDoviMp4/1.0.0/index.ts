@@ -10,7 +10,7 @@ import {
 const details = () :IpluginDetails => ({
   name: 'Remux DoVi MP4',
   description: `
-  Otherwise the file is an MKV, remux that as is into MP4. Unsupported audio streams are removed in the process.
+  Update2 - Otherwise the file is an MKV, remux that as is into MP4. Unsupported audio streams are removed in the process.
   `,
   style: {
     borderColor: '#6efefc',
@@ -57,10 +57,10 @@ const plugin = (args:IpluginInputArgs):IpluginOutputArgs => {
   //     //stream.removed = true;
   //    }
   //  });
-    outputArguments.unshift(...[
-      '-map_metadata', '1',
-      '-bsf:v', 'hevc_mp4toannexb',
-    ]);
+  //  outputArguments.unshift(...[
+  //    '-map_metadata', '0',
+  //    '-map_metadata:c', '1',
+  //  ]);
     outputFileId = args.inputFileObj._id;
   //} 
   //else {
