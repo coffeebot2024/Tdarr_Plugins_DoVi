@@ -10,7 +10,7 @@ var details = function () { return ({
     style: {
         borderColor: '#6efefc',
     },
-    tags: 'video',
+    tags: 'dovi',
     isStartPlugin: false,
     pType: '',
     requiresVersion: '2.11.01',
