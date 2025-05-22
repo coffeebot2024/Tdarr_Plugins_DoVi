@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.plugin = exports.details = void 0;
 /* eslint no-plusplus: ["error", { "allowForLoopAfterthoughts": true }] */
 var details = function () { return ({
-    name: 'Convert Flac Audio Codec to desired code',
+    name: 'Convert Flac Audio Codec',
     description: "Check if a audio stream is Flac and convert it to a desired code\nMake sure the streams are in the correct order before running this plugin",
     style: {
         borderColor: 'green',
