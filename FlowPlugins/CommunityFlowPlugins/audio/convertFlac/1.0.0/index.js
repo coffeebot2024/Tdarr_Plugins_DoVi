@@ -3,23 +3,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.plugin = exports.details = void 0;
 /* eslint no-plusplus: ["error", { "allowForLoopAfterthoughts": true }] */
 var details = function () { return ({
-    name: 'Check Audio Codec',
-    description: 'JS - Check if a file has a specific audio codec',
+    name: 'Convert Flac Audio Codec',
+    description: "Check if a audio stream is Flac and convert it to a desired code\nMake sure the streams are in the correct order before running this plugin",
     style: {
-        borderColor: 'orange',
+        borderColor: 'green',
     },
     tags: 'audio',
     isStartPlugin: false,
     pType: '',
     requiresVersion: '2.11.01',
     sidebarPosition: -1,
-    icon: 'faQuestion',
+    icon: '',
     inputs: [
         {
             label: 'Codec',
             name: 'codec',
             type: 'string',
-            defaultValue: 'aac',
+            defaultValue: 'opus',
             inputUI: {
                 type: 'dropdown',
                 options: [
@@ -39,6 +39,16 @@ var details = function () { return ({
                 ],
             },
             tooltip: 'Specify the codec check for',
+        },
+         {
+            label: 'Check Bitrate',
+            name: 'checkBitrate',
+            type: 'boolean',
+            defaultValue: 'false',
+            inputUI: {
+                type: 'switch',
+            },
+            tooltip: 'Toggle whether to check the bitrate of the audio codec is within a range.',
         },
         {
             label: 'Check Bitrate',
