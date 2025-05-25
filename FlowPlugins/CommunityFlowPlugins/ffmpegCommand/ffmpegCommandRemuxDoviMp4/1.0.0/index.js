@@ -65,7 +65,7 @@ var plugin = function (args) {
         ];
         var mappingArguments_1 = [
             '-map', '1:a',
-            '-map', '1:s',
+            '-map', '1:s?',
         ];
         // Remove truehd and dca audio streams as they are not well supported by ffmpeg in mp4
         //if (args.originalLibraryFile.ffProbeData.streams) {
