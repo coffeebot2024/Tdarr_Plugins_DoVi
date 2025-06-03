@@ -161,11 +161,12 @@ var plugin = function (args) { return __awaiter(void 0, void 0, void 0, function
                 endpoint = '';
                 fileField = '';
                 arrInfo = args.deps.fsextra.readJsonSync("".concat(args.workDir, "/arr.json"), { throws: false });
-                if (arr === 'radarr' && arrInfo !== null) {
+                console.log(arrInfo);
+                if (arr === 'radarr') {
                     endpoint = '/api/v3/movie/';
                     fileField = 'movieFile';
                 }
-                else if (arr === 'sonarr' && arrInfo !== null) {
+                else if (arr === 'sonarr') {
                     endpoint = '/api/v3/episode/';
                     fileField = 'episodeFile';
                 }
