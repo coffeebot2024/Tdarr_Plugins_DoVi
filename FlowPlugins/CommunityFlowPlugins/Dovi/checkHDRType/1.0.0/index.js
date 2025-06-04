@@ -67,7 +67,7 @@ var plugin = function (args) {
                         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                         // @ts-ignore
                     }
-                    else if (/HDR10\+/.test(stream.HDR_Format)) {
+                    else if (/HDR10\+/.test(stream.HDR_Format_Compatibility)) {
                         outputNum = 2;
                     }
                 }
