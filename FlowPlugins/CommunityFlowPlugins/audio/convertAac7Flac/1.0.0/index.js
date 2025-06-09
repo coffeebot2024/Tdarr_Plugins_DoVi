@@ -40,8 +40,8 @@ var fileUtils_1 = require("../../../../FlowHelpers/1.0.0/fileUtils");
 /* eslint no-plusplus: ["error", { "allowForLoopAfterthoughts": true }] */
 var details = function () {
     return {
-    name: 'Convert Flac Audio Codec',
-        description: "Check if a audio stream is Flac and convert it to opus\nMake sure the streams are in the correct order before running this plugin",
+    name: 'Convert Flac or aac 7',
+        description: "Check if a audio stream is Flac or aac 7 and convert it to opus\nMake sure the streams are in the correct order before running this plugin",
         style: {
             borderColor: 'green',
         },
@@ -59,8 +59,12 @@ var details = function () {
             },
             {
                 number: 2,
-                tooltip: 'File does not have flac',
-                },
+                tooltip: 'File has aac 7 and converted to opus',
+            },
+            {
+                number: 3,
+                tooltip: 'File does not have flac or aac 7',
+            },
         ],
     }
 };
@@ -70,14 +74,15 @@ exports.details = details;
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 var plugin = function (args) {
   return __awaiter(void 0, void 0, void 0, function () {
-    var audioIndex, hasCodec, stream, container, lib, outputFilePath, cliArgs, spawnArgs, cli, res;
+    var audioIndex, hasFlac, hasAAC, stream, container, lib, outputFilePath, cliArgs, spawnArgs, cli, res;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 lib = require('../../../../../methods/lib')();
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-param-reassign
                 args.inputs = lib.loadDefaultValues(args.inputs, details);
-                hasCodec = false;
+                hasFlac = false;
+                hasAAC = false;
                 container = (0, fileUtils_1.getContainer)(args.inputFileObj._id);
                 outputFilePath = "".concat((0, fileUtils_1.getPluginWorkDir)(args), "/").concat((0, fileUtils_1.getFileName)(args.inputFileObj._id), ".").concat(container);
                 //var spawnArgs = [];
@@ -86,31 +91,34 @@ var plugin = function (args) {
                 for (var i = 1; i < args.inputFileObj.ffProbeData.streams.length; i += 1) {
                 // Check if stream is audio and flac.
                     stream = args.inputFileObj.ffProbeData.streams[i];
-                    if (stream.codec_type.toLowerCase() === "audio" && stream.codec_name.toLowerCase() === "flac") {
-                    hasCodec = true;
                     audioIndex = i-1;
-                    spawnArgs.push("".concat("-c:a:",audioIndex),"libopus","-ac");
-                    //"-c:a:" + i + "libopus" + "-ac";
-                        switch (stream.channels){
-                          case 2:
-                            spawnArgs.push("2","-b:a","192K");
-                            //ffmpegCommandInsert += "-ac 2 -b:a 192K";
-                            break;
-                          case 6:
-                            spawnArgs.push("6","-b:a","256K");
-                            //spawnArgs += "6" + "-b:a" + "256K";
-                            //ffmpegCommandInsert += "-ac 6 -b:a 256K";
-                            break;outputNumber
-                          case 8:
-                            spawnArgs.push("8","-b:a","384K");
-                            //spawnArgs += "8" + "-b:a" + "384K";
-                            //ffmpegCommandInsert += "-ac 8 -b:a 384K";
-                            break;
-                        }
+                    if (stream.codec_type.toLowerCase() === "audio" && stream.codec_name.toLowerCase() === "flac") {
+                      hasFlac = true;
+                      spawnArgs.push("".concat("-c:a:",audioIndex),"libopus","-ac");
+                      //"-c:a:" + i + "libopus" + "-ac";
+                          switch (stream.channels){
+                            case 2:
+                              spawnArgs.push("2","-b:a","192K");
+                              //ffmpegCommandInsert += "-ac 2 -b:a 192K";
+                              break;
+                            case 6:
+                              spawnArgs.push("6","-b:a","256K");
+                              //spawnArgs += "6" + "-b:a" + "256K";
+                              //ffmpegCommandInsert += "-ac 6 -b:a 256K";
+                              break;outputNumber
+                            case 8:
+                              spawnArgs.push("8","-b:a","384K");
+                              //spawnArgs += "8" + "-b:a" + "384K";
+                              //ffmpegCommandInsert += "-ac 8 -b:a 384K";
+                              break;
+                          }
+                    } else if (stream.codec_type.toLowerCase() === "audio" && stream.codec_name.toLowerCase() === "aac" && stream.channels === 8){
+                      hasAAC = true;
+                      spawnArgs.push("".concat("-c:a:",audioIndex),"libopus","-ac","8","-b:a","384K","-map","".concat("0:a:",audioIndex));
                     }
                 }
                 spawnArgs.push(outputFilePath);
-                if (hasCodec){
+                if (hasAAC || hasFlac){
                   cli = new cliUtils_1.CLI({
                     cli: "/usr/local/bin/ffmpeg",
                     spawnArgs: spawnArgs,
@@ -124,7 +132,7 @@ var plugin = function (args) {
                   return [4 /*yield*/, cli.runCli()];
                 }
             case 1:
-              if (hasCodec){
+              if (hasAAC || hasFlac){
                 res = _a.sent();
                 if (res.cliExitCode !== 0) {
                   args.jobLog('Running FFmpeg failed');
@@ -132,16 +140,17 @@ var plugin = function (args) {
                 }
                 return [2 /*return*/, {
                   outputFileObj: { _id: outputFilePath },
-                  outputNumber: 1,
+                  outputNumber: hasFlac ? 1 : hasAAC ? 2 : 3,
                   variables: args.variables,
                 }];
-              } else {
-                return [2 /*return*/, {
-                  outputFileObj: args.inputFileObj,
-                  outputNumber: 2,
-                  variables: args.variables,
-                }];
-              }
+              } //else {
+                //return [2 /*return*/, {
+                  //outputFileObj: args.inputFileObj,
+                  //outputNumber: 2,
+                  //variables: args.variables,
+                //}];
+                
+              //}
         }
     });
   });
