@@ -138,19 +138,12 @@ var plugin = function (args) {
                   args.jobLog('Running FFmpeg failed');
                   throw new Error('FFmpeg failed');
                 }
-                return [2 /*return*/, {
+              }
+              return [2 /*return*/, {
                   outputFileObj: { _id: outputFilePath },
                   outputNumber: hasFlac ? 1 : hasAAC ? 2 : 3,
                   variables: args.variables,
-                }];
-              } //else {
-                //return [2 /*return*/, {
-                  //outputFileObj: args.inputFileObj,
-                  //outputNumber: 2,
-                  //variables: args.variables,
-                //}];
-                
-              //}
+              }];
         }
     });
   });
