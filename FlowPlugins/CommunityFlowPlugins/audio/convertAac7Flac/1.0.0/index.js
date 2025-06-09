@@ -140,7 +140,7 @@ var plugin = function (args) {
                 }
               }
               return [2 /*return*/, {
-                  outputFileObj: hasFlac ? { _id: outputFilePath } : hasAAC ? { _id: outputFilePath } : args.inputFileObj,
+                  outputFileObj: hasFlac || hasAAC ? { _id: outputFilePath } : args.inputFileObj,
                   outputNumber: hasFlac ? 1 : hasAAC ? 2 : 3,
                   variables: args.variables,
               }];
