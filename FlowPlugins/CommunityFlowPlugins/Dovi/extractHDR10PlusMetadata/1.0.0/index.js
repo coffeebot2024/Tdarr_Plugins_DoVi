@@ -41,7 +41,7 @@ var cliUtils_1 = require("../../../../FlowHelpers/1.0.0/cliUtils");
 var fileUtils_1 = require("../../../../FlowHelpers/1.0.0/fileUtils");
 var details = function () { return ({
     name: 'Extract HDR10+ Metadata',
-    description: 'Extract HDR10+ metadata to JSON',
+    description: 'Updated - Extract HDR10+ metadata to JSON',
     style: {
         borderColor: 'orange',
     },
