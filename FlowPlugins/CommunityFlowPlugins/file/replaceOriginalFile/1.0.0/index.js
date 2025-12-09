@@ -45,7 +45,7 @@ var fileUtils_1 = require("../../../../FlowHelpers/1.0.0/fileUtils");
 /* eslint no-plusplus: ["error", { "allowForLoopAfterthoughts": true }] */
 var details = function () { return ({
     name: 'Replace Original File',
-    description: 'Replace the original file. If the file hasn\'t changed then no action is taken.',
+    description: 'Replace the original file. If the file hasn\'t changed then no action is taken.Edit 1',
     style: {
         borderColor: 'green',
     },
