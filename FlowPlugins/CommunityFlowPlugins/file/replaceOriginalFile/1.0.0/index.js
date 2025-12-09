@@ -1,4 +1,4 @@
-"use strict";
+E"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -45,7 +45,7 @@ var fileUtils_1 = require("../../../../FlowHelpers/1.0.0/fileUtils");
 /* eslint no-plusplus: ["error", { "allowForLoopAfterthoughts": true }] */
 var details = function () { return ({
     name: 'Replace Original File',
-    description: 'Replace the original file. If the file hasn\'t changed then no action is taken.Edit 1',
+    description: 'Replace the original file. If the file hasn\'t changed then no action is taken.',
     style: {
         borderColor: 'green',
     },
@@ -124,9 +124,6 @@ var plugin = function (args) { return __awaiter(void 0, void 0, void 0, function
             case 4:
                 _a.sent();
                 return [2 /*return*/, {
-                        originalLibraryFile: {
-                            _id: newPath,
-                        },
                         outputFileObj: {
                             _id: newPath,
                         },
