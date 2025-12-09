@@ -124,6 +124,9 @@ var plugin = function (args) { return __awaiter(void 0, void 0, void 0, function
             case 4:
                 _a.sent();
                 return [2 /*return*/, {
+                        originalLibraryFile: {
+                            _id: newPath,
+                        },
                         outputFileObj: {
                             _id: newPath,
                         },
