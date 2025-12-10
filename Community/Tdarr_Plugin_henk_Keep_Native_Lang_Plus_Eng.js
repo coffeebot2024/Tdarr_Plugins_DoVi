@@ -4,7 +4,7 @@ module.exports.dependencies = ['axios@0.27.2', '@cospired/i18n-iso-languages'];
 const details = () => ({
   id: 'Tdarr_Plugin_henk_Keep_Native_Lang_Plus_Eng',
   Stage: 'Pre-processing',
-  Name: 'Remove all langs except native and English',
+  Name: 'Remove All Langs Except Native And English',
   Type: 'Audio',
   Operation: 'Transcode',
   Description: `This plugin will remove all language audio tracks except the 'native'
@@ -105,7 +105,7 @@ const response = {
 };
 
 const processStreams = (result, file, user_langs) => {
-  // eslint-disable-next-line import/no-unresolved
+  // eslint-disable-next-line import/no-unresolved,import/no-extraneous-dependencies
   const languages = require('@cospired/i18n-iso-languages');
   const tracks = {
     keep: [],
@@ -219,7 +219,7 @@ const plugin = async (file, librarySettings, inputs, otherArguments) => {
   const lib = require('../methods/lib')();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-param-reassign
   inputs = lib.loadDefaultValues(inputs, details);
-  // eslint-disable-next-line import/no-unresolved
+  // eslint-disable-next-line import/no-unresolved,import/no-extraneous-dependencies
   const axios = require('axios').default;
 
   response.container = `.${file.container}`;
@@ -257,7 +257,7 @@ const plugin = async (file, librarySettings, inputs, otherArguments) => {
           if (radarrResult) {
             imdbId = radarrResult.imdbId;
             response.infoLog += `Grabbed ID (${imdbId}) from Radarr \n`;
-            // eslint-disable-next-line import/no-unresolved
+            // eslint-disable-next-line import/no-unresolved,import/no-extraneous-dependencies
             const languages = require('@cospired/i18n-iso-languages');
             tmdbResult = { original_language: languages.getAlpha2Code(radarrResult.originalLanguage.name, 'en') };
           } else {
